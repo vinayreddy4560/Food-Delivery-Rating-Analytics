@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chart Analysis | Food Delivery Analytics</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container nav">
+        <div class="brand">Food Delivery Analytics</div>
+        <nav class="nav-links">
+          <a href="index.html">Overview</a>
+          <a href="analysis.html">Chart Analysis</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <h1>Analysis Charts</h1>
+        <p>
+          These visualizations are generated from the notebook and Python analysis pipeline.
+          Each chart below explains what it shows and why it matters.
+        </p>
+        <div class="hero-banner">
+          The dataset time field is minute-second formatted, so hour-based charts have limited spread.
+          To improve time insight quality, this project adds a 5-minute bucket fallback analysis.
+          <div class="chip-row">
+            <span class="chip primary">100,000 Orders</span>
+            <span class="chip secondary">29.54 min Avg Duration</span>
+            <span class="chip accent">3.24 Avg Rating</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="insight-grid">
+        <article class="insight-card primary">
+          <h3>Delay Pattern</h3>
+          <p>Late-order share is high enough to justify proactive intervention workflows.</p>
+        </article>
+        <article class="insight-card secondary">
+          <h3>Experience Pattern</h3>
+          <p>Rating vs duration relationship is very weak in this sample, indicating other factors matter.</p>
+        </article>
+        <article class="insight-card accent">
+          <h3>Refund Pattern</h3>
+          <p>Refund behavior should be monitored alongside feedback quality, not just delay threshold.</p>
+        </article>
+      </section>
+
+      <section class="chart-grid">
+        <article class="chart-card">
+          <img src="outputs/delivery_duration_distribution.png" alt="Delivery Duration Distribution" />
+          <div class="chart-copy">
+            <h3>Delivery Duration Distribution</h3>
+            <p>Shows the spread of delivery times and helps identify typical delivery windows and tail delays.</p>
+            <ul>
+              <li>Operational use: pick SLA threshold candidates using the dense center and long-tail behavior.</li>
+              <li>Business use: design escalation triggers for the longest-delay segment.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="chart-card">
+          <img src="outputs/rating_distribution.png" alt="Rating Distribution" />
+          <div class="chart-copy">
+            <h3>Rating Distribution</h3>
+            <p>Shows how customer ratings are distributed across all orders and where satisfaction is concentrated.</p>
+            <ul>
+              <li>Operational use: quantify low-rating load requiring service recovery.</li>
+              <li>Business use: benchmark customer experience trend across future runs.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="chart-card">
+          <img src="outputs/delivery_duration_vs_rating_scatter.png" alt="Delivery Duration vs Rating" />
+          <div class="chart-copy">
+            <h3>Delivery Duration vs Rating</h3>
+            <p>Compares delivery duration and rating per order to check whether slower deliveries reduce ratings.</p>
+            <ul>
+              <li>Current finding: weak association in this data, so delays alone do not explain rating behavior.</li>
+              <li>Next step: include product quality, missing items, and support response features.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="chart-card">
+          <img src="outputs/delay_category_vs_rating_boxplot.png" alt="Delay Category vs Rating" />
+          <div class="chart-copy">
+            <h3>Delay Category vs Rating</h3>
+            <p>Compares rating ranges for on-time and late orders to highlight variation and median behavior.</p>
+            <ul>
+              <li>Operational use: detect whether late orders materially shift rating distribution.</li>
+              <li>Business use: justify compensations for specific delay bands if rating drop is strong.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="chart-card">
+          <img src="outputs/orders_per_hour.png" alt="Orders per Hour" />
+          <div class="chart-copy">
+            <h3>Orders per Hour</h3>
+            <p>Shows order volume by hour. In this dataset, hour values collapse due to minute-second time format.</p>
+            <ul>
+              <li>Interpretation caution: this chart is structurally limited by source time format.</li>
+              <li>Fallback below provides better short-interval time behavior.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="chart-card">
+          <img src="outputs/avg_delay_per_hour.png" alt="Average Delay per Hour" />
+          <div class="chart-copy">
+            <h3>Average Delay per Hour</h3>
+            <p>Shows average delay by hour. Useful for finding peak-delay periods when true hour data is available.</p>
+            <ul>
+              <li>Operational use: schedule staffing changes around high-delay windows when proper hour data exists.</li>
+              <li>Current project compensates with minute-bucket views.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="chart-card">
+          <img src="outputs/orders_per_5min_bucket.png" alt="Orders per 5-Minute Bucket" />
+          <div class="chart-copy">
+            <h3>Orders per 5-Minute Bucket</h3>
+            <p>Fallback time analysis using 5-minute buckets when hour-level information is not meaningful.</p>
+            <ul>
+              <li>Operational use: understand micro-peaks in order flow even without full timestamp context.</li>
+              <li>Useful for short-cycle dispatch planning and partner queue balancing.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="chart-card">
+          <img src="outputs/avg_delay_per_5min_bucket.png" alt="Average Delay per 5-Minute Bucket" />
+          <div class="chart-copy">
+            <h3>Average Delay per 5-Minute Bucket</h3>
+            <p>Shows delay fluctuations across minute buckets and highlights the bucket with highest average delay.</p>
+            <ul>
+              <li>Current finding: peak delay appears around the 50-54 minute bucket.</li>
+              <li>Operational use: trigger proactive messaging during identified high-delay intervals.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="chart-card">
+          <img src="outputs/category_avg_delay.png" alt="Category Average Delay" />
+          <div class="chart-copy">
+            <h3>Category Average Delay</h3>
+            <p>Compares average delay across product categories to identify the most operationally challenging segments.</p>
+            <ul>
+              <li>Current finding: Grocery is the highest-delay category in this run.</li>
+              <li>Operational use: tune packaging, picker allocation, and partner assignment by category.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="chart-card">
+          <img src="outputs/category_avg_rating.png" alt="Category Average Rating" />
+          <div class="chart-copy">
+            <h3>Category Average Rating</h3>
+            <p>Shows which categories are rated lower and may need experience improvement.</p>
+            <ul>
+              <li>Current finding: Grocery is also lowest in rating, indicating category-specific friction.</li>
+              <li>Business use: prioritize category-level quality audits and communication fixes.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="chart-card">
+          <img src="outputs/order_value_vs_rating.png" alt="Order Value vs Rating" />
+          <div class="chart-copy">
+            <h3>Order Value vs Rating</h3>
+            <p>Checks if higher-value orders receive better ratings. In this case, correlation is near zero.</p>
+            <ul>
+              <li>Interpretation: premium basket size does not guarantee better perceived service.</li>
+              <li>Business use: maintain quality consistency across all order values.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="chart-card">
+          <img src="outputs/refund_rate_by_duration_band.png" alt="Refund Rate by Duration Band" />
+          <div class="chart-copy">
+            <h3>Refund Rate by Duration Band</h3>
+            <p>Shows how refund risk changes as delivery duration grows, useful for proactive customer recovery actions.</p>
+            <ul>
+              <li>Operational use: identify duration bands where compensation has the highest retention value.</li>
+              <li>Business use: build refund-risk thresholds for support automation.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="chart-card">
+          <img src="outputs/avg_rating_by_refund_status.png" alt="Average Rating by Refund Status" />
+          <div class="chart-copy">
+            <h3>Average Rating by Refund Requested</h3>
+            <p>Compares average rating between refunded and non-refunded orders to measure satisfaction gap.</p>
+            <ul>
+              <li>Current finding: refunded orders have substantially lower ratings than non-refunded orders.</li>
+              <li>Business use: trigger earlier support interventions for low-rating signals to reduce refund demand.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="chart-card">
+          <img src="outputs/delay_category_share_pie.png" alt="Order Share by Delay Category" />
+          <div class="chart-copy">
+            <h3>Order Share by Delay Category</h3>
+            <p>Shows the percentage split of On-Time vs Late orders for quick operational health tracking.</p>
+            <ul>
+              <li>Operational use: monitor delay share trends over time and evaluate fulfillment process improvements.</li>
+              <li>Business use: set alert thresholds when late-share exceeds acceptable service targets.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="chart-card">
+          <img src="outputs/correlation_heatmap.png" alt="Correlation Heatmap" />
+          <div class="chart-copy">
+            <h3>Correlation Heatmap</h3>
+            <p>Summarizes pairwise relationships among key numerical variables used for diagnostic and model context.</p>
+            <ul>
+              <li>Modeling use: select candidate features and remove redundant variables before training.</li>
+              <li>Interpretation: near-zero pairs suggest weak linear links and need richer feature engineering.</li>
+            </ul>
+          </div>
+        </article>
+      </section>
+
+      <section class="section">
+        <h2>Power BI Dashboard Snapshot</h2>
+        <div class="chart-card dashboard-highlight">
+          <img src="outputs/dashboard.png" alt="Power BI dashboard snapshot for food delivery analytics" class="popup-image" />
+          <div class="chart-copy">
+            <h3>Interactive Power BI Dashboard</h3>
+            <p>
+              This dashboard brings the project findings together in one view. The top row shows the core KPI cards,
+              followed by the main analytical visuals and slicers for filtering by delivery delay, platform, and service rating.
+            </p>
+            <ul>
+              <li>KPI cards summarize average delivery time, average rating, total orders, and on-time rate.</li>
+              <li>The bar chart compares average delivery time by delay status and shows late deliveries taking longer.</li>
+              <li>The column chart shows how orders are distributed across service ratings, with 5-star ratings dominating.</li>
+              <li>The line chart uses a generated month field because the source file does not include a real date column.</li>
+              <li>The scatter plot checks whether longer delivery time lowers rating; the relationship is weak in this dataset.</li>
+              <li>The pie charts show refund requested share and delivery delay share, which help summarize service health quickly.</li>
+            </ul>
+            <p>
+              Important note: the monthly trend is based on a synthetic month column created from the row index,
+              so it is useful for presentation but not a true calendar month analysis from the source CSV.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>How to Read These Results</h2>
+        <div class="card">
+          <ul>
+            <li>Start with distribution charts to understand baseline behavior.</li>
+            <li>Then inspect relationship charts (scatter/box/correlation) for driver signals.</li>
+            <li>Finally, use category and time views to prioritize concrete operational actions.</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+    
+    <div id="image-modal" class="image-modal" aria-hidden="true">
+      <button type="button" class="image-modal-close" aria-label="Close image preview">&times;</button>
+      <img id="image-modal-img" alt="Expanded chart preview" />
+      <p id="image-modal-caption"></p>
+    </div>
+
+    <footer>
+      <div class="container">
+        <div class="game-footer">
+          Built by <a href="https://bikram-3-d-portfolio.vercel.app/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;"><span class="blue-glow-text">👉🏻🅑🅘🅚🅡🅐🅜👈🏻</span></a> 🚀 <br>
+          Check out the source code here👉🏻<a href="https://github.com/bikram73/Food_Delivery_Delay_and_Rating_Analysis" target="_blank" rel="noopener noreferrer" class="github-link"><svg height="24" viewBox="0 0 16 16" version="1.1" width="24" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg></a>
+        </div>
+      </div>
+    </footer>
+    
+    <script>
+      const modal = document.getElementById('image-modal');
+      const modalImg = document.getElementById('image-modal-img');
+      const modalCaption = document.getElementById('image-modal-caption');
+      const closeButton = document.querySelector('.image-modal-close');
+      const popupImages = document.querySelectorAll('.chart-card img, .dashboard-highlight img');
+
+      function openModal(image) {
+        modalImg.src = image.src;
+        modalImg.alt = image.alt || 'Expanded chart preview';
+        modalCaption.textContent = image.alt || '';
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+      }
+
+      function closeModal() {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        modalImg.src = '';
+        modalCaption.textContent = '';
+      }
+
+      popupImages.forEach((image) => {
+        image.addEventListener('click', () => openModal(image));
+        image.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            openModal(image);
+          }
+        });
+        image.setAttribute('tabindex', '0');
+        image.setAttribute('role', 'button');
+        image.setAttribute('aria-label', `Open ${image.alt || 'chart'} in popup`);
+      });
+
+      closeButton.addEventListener('click', closeModal);
+      modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+          closeModal();
+        }
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && modal.classList.contains('open')) {
+          closeModal();
+        }
+      });
+    </script>
+  </body>
+</html>

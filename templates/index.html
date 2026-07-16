@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food Delivery Delay and Rating Analysis</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container nav">
+        <div class="brand">Food Delivery Analytics</div>
+        <nav class="nav-links">
+          <a href="index.html">Overview</a>
+          <a href="analysis.html">Chart Analysis</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <h1>Food Delivery Delay and Rating Analysis</h1>
+        <p>
+          This project analyzes 100,000 food delivery records to understand delay trends,
+          customer ratings, refund behavior, and practical business actions.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="analysis.html">Open Analytics</a>
+          <a class="button button-secondary" href="#project-scope">Project Scope</a>
+        </div>
+        <div class="hero-banner">
+          End-to-end analysis includes data cleaning, KPI extraction, visualization, and baseline ML.
+          <div class="chip-row">
+            <span class="chip primary">Delay Intelligence</span>
+            <span class="chip secondary">Customer Ratings</span>
+            <span class="chip accent">Refund Risk</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="kpi-grid">
+        <article class="kpi">
+          <h3>100,000</h3>
+          <p>Orders Analyzed</p>
+        </article>
+        <article class="kpi">
+          <h3>29.54 min</h3>
+          <p>Avg Delivery Time</p>
+        </article>
+        <article class="kpi">
+          <h3>3.24 / 5</h3>
+          <p>Avg Service Rating</p>
+        </article>
+        <article class="kpi">
+          <h3>46.16%</h3>
+          <p>Late Orders Share</p>
+        </article>
+        <article class="kpi">
+          <h3>45.94%</h3>
+          <p>Refund Rate for Late Orders</p>
+        </article>
+      </section>
+
+      <section class="section" id="project-scope">
+        <h2>Project Scope</h2>
+        <div class="card">
+          <ul>
+            <li>Data cleaning and feature engineering from raw ecommerce delivery records.</li>
+            <li>Delay, rating, category, value, and refund behavior analysis.</li>
+            <li>Time-based analysis with 5-minute fallback because source time is minute-second formatted.</li>
+            <li>Baseline machine learning model (Linear Regression) to predict rating using delivery duration.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Key Findings</h2>
+        <div class="card">
+          <ul>
+            <li>Platform with highest average delivery time: JioMart (29.63 min).</li>
+            <li>Category with highest delay: Grocery (29.58 min).</li>
+            <li>Category with lowest rating: Grocery (3.22).</li>
+            <li>Order value vs rating correlation is nearly zero (-0.0027).</li>
+            <li>Late vs on-time refund rate is almost identical in this dataset (1.00x).</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Business Recommendations</h2>
+        <div class="card">
+          <ul>
+            <li>If delivery exceeds 30 minutes, trigger apology coupon workflow.</li>
+            <li>Optimize high-delay categories with better dispatch and packaging flow.</li>
+            <li>Increase delivery partner availability during peak delay windows.</li>
+            <li>Use refund-risk flags for faster support intervention.</li>
+            <li>Use model output as an early signal for customer satisfaction drop.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="note">
+          Open <strong>Chart Analysis</strong> to view all generated charts with explanations.
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Installation</h2>
+        <div class="card">
+          <ol>
+            <li>Clone or download the repository.</li>
+            <li>Create and activate a Python virtual environment.</li>
+            <li>Install dependencies with <code>pip install -r requirements.txt</code>.</li>
+            <li>Run <code>python food_delivery_analysis.py</code> to regenerate the cleaned data, summary, and charts.</li>
+            <li>Open <code>templates/index.html</code> locally, or use GitHub Pages deployment from this repository.</li>
+          </ol>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="game-footer">
+          Built by <a href="https://bikram-3-d-portfolio.vercel.app/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;"><span class="blue-glow-text">👉🏻🅑🅘🅚🅡🅐🅜👈🏻</span></a> 🚀 <br>
+          Check out the source code here👉🏻<a href="https://github.com/bikram73/Food_Delivery_Delay_and_Rating_Analysis" target="_blank" rel="noopener noreferrer" class="github-link"><svg height="24" viewBox="0 0 16 16" version="1.1" width="24" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg></a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
